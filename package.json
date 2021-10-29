@@ -7,10 +7,13 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "lint": "lint-staged",
-    "prepare": "husky install"
+    "prepare": "npx husky install"
   },
   "dependencies": {
+    "@expo-google-fonts/jost": "^0.2.0",
     "expo": "~43.0.0",
+    "expo-app-loading": "^1.2.1",
+    "expo-font": "^10.0.3",
     "expo-status-bar": "~1.1.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
