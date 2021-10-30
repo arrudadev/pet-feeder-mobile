@@ -39,6 +39,7 @@ module.exports = {
         groups: [
           '/^react/',
           '/^expo/',
+          '/^@expo/',
           'module',
           ['parent', 'sibling', 'index'],
         ],
@@ -76,5 +77,6 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'prettier/prettier': 'error',
+    '@typescript-eslint/no-empty-interface': 'off',
   },
 };

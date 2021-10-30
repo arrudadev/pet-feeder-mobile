@@ -10,6 +10,10 @@ import {
   Jost_600SemiBold,
 } from '@expo-google-fonts/jost';
 
+import { ThemeProvider } from 'styled-components';
+
+import theme from './src/styles/theme';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -28,9 +32,11 @@ export default function App() {
   if (!fontsLoaded) return <AppLoading />;
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar />
-    </View>
+    <ThemeProvider theme={theme}>
+      <View style={styles.container}>
+        <Text>Open up App.tsx to start working on your app!</Text>
+        <StatusBar />
+      </View>
+    </ThemeProvider>
   );
 }
