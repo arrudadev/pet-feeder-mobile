@@ -10,7 +10,7 @@ import {
 
 import { ThemeProvider } from 'styled-components';
 
-import { Login } from './src/pages/Login';
+import { Routes } from './src/routes';
 import theme from './src/styles/theme';
 
 export default function App() {
@@ -23,7 +23,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Login />
+      <Routes />
     </ThemeProvider>
   );
 }
