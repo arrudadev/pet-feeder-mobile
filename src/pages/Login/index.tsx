@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { CommonActions, useNavigation } from '@react-navigation/native';
+
 import dogImg from '../../assets/dog.png';
 import googleIconImg from '../../assets/google-icon.png';
 import {
@@ -16,6 +18,12 @@ import {
 } from './styles';
 
 export function Login() {
+  const navigation = useNavigation();
+
+  function handleLogin() {
+    navigation.dispatch(CommonActions.navigate({ name: 'Home' }));
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -32,7 +40,7 @@ export function Login() {
           horários corretos, nós te ajudamos a fazer isso.
         </SubTitle>
 
-        <GoogleButton>
+        <GoogleButton onPress={() => handleLogin()}>
           <GoogleButtonIconWrapper>
             <GoogleButtonIcon source={googleIconImg} resizeMode="contain" />
           </GoogleButtonIconWrapper>

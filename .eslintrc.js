@@ -78,5 +78,6 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': ['error'],
     'prettier/prettier': 'error',
     '@typescript-eslint/no-empty-interface': 'off',
+    'react/require-default-props': 'off',
   },
 };
