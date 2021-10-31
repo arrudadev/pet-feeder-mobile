@@ -24,8 +24,10 @@ export const Title = styled.Text`
   margin-top: 38px;
 `;
 
+const imageWidth = `${Dimensions.get('window').width * 0.7}px`;
+
 export const Image = styled.Image`
-  height: ${Dimensions.get('window').width * 0.7};
+  height: ${imageWidth};
 `;
 
 export const SubTitle = styled.Text`
