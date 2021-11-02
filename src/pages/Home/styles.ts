@@ -36,5 +36,34 @@ export const PetListWrapper = styled.View`
   flex: 1;
 
   position: relative;
-  top: -30px;
+  top: -10px;
+`;
+
+export const BreedWrapper = styled.View`
+  position: relative;
+  top: -5px;
+
+  padding: 0 20px;
+`;
+
+export const BreedWrapperHeader = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const BreedTitle = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.heading};
+  font-size: 18px;
+
+  color: ${({ theme }) => theme.colors.heading};
+
+  margin-bottom: 10px;
+`;
+
+export const BreedSubtitle = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.text};
+  font-size: 16px;
+
+  color: ${({ theme }) => theme.colors.body_dark};
 `;

@@ -6,6 +6,10 @@ import { PetList } from '../../components/PetList';
 import { PetTypeCard } from '../../components/PetTypeCard';
 import { Tips } from '../../components/Tips';
 import {
+  BreedSubtitle,
+  BreedTitle,
+  BreedWrapper,
+  BreedWrapperHeader,
   Container,
   PetListWrapper,
   PetTypeTitle,
@@ -33,7 +37,15 @@ export function Home() {
         </PetTypeWrapperCards>
       </PetTypeWrapper>
 
-      <BreedHorizontalList />
+      <BreedWrapper>
+        <BreedWrapperHeader>
+          <BreedTitle>Raças</BreedTitle>
+
+          <BreedSubtitle>Ver todos</BreedSubtitle>
+        </BreedWrapperHeader>
+
+        <BreedHorizontalList />
+      </BreedWrapper>
 
       <PetListWrapper>
         <PetList />
