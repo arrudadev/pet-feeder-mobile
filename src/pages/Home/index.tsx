@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { BreedHorizontalList } from '../../components/BreedHorizontalList';
 import { HomeHeader } from '../../components/Headers/HomeHeader';
 import { PetList } from '../../components/PetList';
 import { PetTypeCard } from '../../components/PetTypeCard';
@@ -7,7 +8,9 @@ import { Tips } from '../../components/Tips';
 import {
   Container,
   PetListWrapper,
+  PetTypeTitle,
   PetTypeWrapper,
+  PetTypeWrapperCards,
   TipsWrapper,
 } from './styles';
 
@@ -21,10 +24,16 @@ export function Home() {
       </TipsWrapper>
 
       <PetTypeWrapper>
-        <PetTypeCard type="dog" checked />
+        <PetTypeTitle>Categorias</PetTypeTitle>
 
-        <PetTypeCard type="cat" checked={false} />
+        <PetTypeWrapperCards>
+          <PetTypeCard type="dog" checked />
+
+          <PetTypeCard type="cat" checked={false} />
+        </PetTypeWrapperCards>
       </PetTypeWrapper>
+
+      <BreedHorizontalList />
 
       <PetListWrapper>
         <PetList />

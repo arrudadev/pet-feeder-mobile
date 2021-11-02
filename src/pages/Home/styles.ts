@@ -12,13 +12,24 @@ export const TipsWrapper = styled.View`
 `;
 
 export const PetTypeWrapper = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-
   position: relative;
   top: -20px;
 
   padding: 0 20px;
+`;
+
+export const PetTypeTitle = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.heading};
+  font-size: 18px;
+
+  color: ${({ theme }) => theme.colors.heading};
+
+  margin-bottom: 10px;
+`;
+
+export const PetTypeWrapperCards = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 export const PetListWrapper = styled.View`
