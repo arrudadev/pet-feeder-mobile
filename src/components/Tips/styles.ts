@@ -1,6 +1,8 @@
-import styled from 'styled-components/native';
+import { RectButton } from 'react-native-gesture-handler';
 
-export const Container = styled.View`
+import styled, { css } from 'styled-components/native';
+
+const content = css`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -10,6 +12,14 @@ export const Container = styled.View`
   padding: 20px;
 
   border-radius: 20px;
+`;
+
+export const Container = styled.View`
+  ${content}
+`;
+
+export const Button = styled(RectButton)`
+  ${content}
 `;
 
 export const Message = styled.Text<{ customWidth: string }>`
