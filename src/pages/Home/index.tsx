@@ -24,7 +24,11 @@ export function Home() {
       <HomeHeader />
 
       <TipsWrapper>
-        <Tips showArrowIcon message="Dicas para cuidar melhor do seu Pet" />
+        <Tips
+          showArrowIcon
+          message="Dicas para cuidar melhor do seu Pet"
+          navigationPage="FeedingTips"
+        />
       </TipsWrapper>
 
       <PetTypeWrapper>
