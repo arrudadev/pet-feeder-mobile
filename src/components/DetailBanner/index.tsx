@@ -11,7 +11,7 @@ type DetailBannerProps = {
 
 export function DetailBanner({ image, title, subtitle }: DetailBannerProps) {
   return (
-    <Banner source={image}>
+    <Banner source={image} resizeMode="stretch">
       <Content>
         {title && <Title>{title}</Title>}
 
