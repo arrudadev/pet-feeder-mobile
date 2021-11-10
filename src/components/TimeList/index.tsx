@@ -30,14 +30,9 @@ export function TimeList() {
       <TimeListHeader />
 
       <TimeWrapper>
-        <FlatList
-          data={times}
-          keyExtractor={time => String(time.id)}
-          renderItem={({ item: time }) => (
-            <TimeListItem key={time.id} time={time.time} />
-          )}
-          showsVerticalScrollIndicator={false}
-        />
+        {times.map((time: any) => (
+          <TimeListItem key={time.id} time={time.time} />
+        ))}
       </TimeWrapper>
     </Container>
   );
