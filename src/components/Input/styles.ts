@@ -13,8 +13,8 @@ export const StyledTextInput = styled.TextInput`
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.heading};
 
-  font-family: ${({ theme }) => theme.fonts.text};
-  font-size: 13px;
+  font-family: ${({ theme }) => theme.fonts.heading};
+  font-size: 18px;
 
   margin-right: 4px;
   padding: 0 20px;
