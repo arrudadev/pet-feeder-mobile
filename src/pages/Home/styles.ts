@@ -11,6 +11,10 @@ export const TipsWrapper = styled.View`
   padding: 0 20px;
 `;
 
+export const Wrapper = styled.View`
+  padding: 0 20px;
+`;
+
 export const PetTypeWrapper = styled.View`
   position: relative;
   top: -20px;
@@ -66,4 +70,23 @@ export const BreedSubtitle = styled.Text`
   font-size: 16px;
 
   color: ${({ theme }) => theme.colors.body_dark};
+`;
+
+export const ButtonEditPet = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: center;
+
+  height: 56px;
+
+  margin-top: 10px;
+
+  border-radius: 16px;
+  background-color: ${({ theme }) => theme.colors.green};
+`;
+
+export const ButtonEditPetText = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.heading};
+  font-size: 18px;
+
+  color: ${({ theme }) => theme.colors.white};
 `;

@@ -1,21 +1,16 @@
 import React from 'react';
 
-import { BreedHorizontalList } from '../../components/BreedHorizontalList';
 import { HomeHeader } from '../../components/Headers/HomeHeader';
-import { PetList } from '../../components/PetList';
-import { PetTypeCard } from '../../components/PetTypeCard';
+import { Input } from '../../components/Input';
+import { SelectPet } from '../../components/SelectPet';
+import { TimeList } from '../../components/TimeList';
 import { Tips } from '../../components/Tips';
 import {
-  BreedSubtitle,
-  BreedTitle,
-  BreedWrapper,
-  BreedWrapperHeader,
+  ButtonEditPet,
+  ButtonEditPetText,
   Container,
-  PetListWrapper,
-  PetTypeTitle,
-  PetTypeWrapper,
-  PetTypeWrapperCards,
   TipsWrapper,
+  Wrapper,
 } from './styles';
 
 export function Home() {
@@ -31,29 +26,21 @@ export function Home() {
         />
       </TipsWrapper>
 
-      <PetTypeWrapper>
-        <PetTypeTitle>Categorias</PetTypeTitle>
+      <Wrapper>
+        <SelectPet />
 
-        <PetTypeWrapperCards>
-          <PetTypeCard type="dog" checked />
+        <Input
+          label="Quantidade de ração por Refeição"
+          value="100g"
+          editable={false}
+        />
 
-          <PetTypeCard type="cat" checked={false} />
-        </PetTypeWrapperCards>
-      </PetTypeWrapper>
+        <TimeList />
 
-      <BreedWrapper>
-        <BreedWrapperHeader>
-          <BreedTitle>Raças</BreedTitle>
-
-          <BreedSubtitle>Ver todos</BreedSubtitle>
-        </BreedWrapperHeader>
-
-        <BreedHorizontalList />
-      </BreedWrapper>
-
-      <PetListWrapper>
-        <PetList />
-      </PetListWrapper>
+        <ButtonEditPet>
+          <ButtonEditPetText>Editar Pet</ButtonEditPetText>
+        </ButtonEditPet>
+      </Wrapper>
     </Container>
   );
 }
