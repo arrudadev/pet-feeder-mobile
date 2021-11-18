@@ -3,19 +3,17 @@ import React, { useState } from 'react';
 // @ts-ignore
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
+import { FeedWeightTable } from '../../components/FeedWeightTable';
 import { DetailHeader } from '../../components/Headers/DetailHeader';
 import { Input } from '../../components/Input';
-import { PetTypeCard } from '../../components/PetTypeCard';
 import { TimeList } from '../../components/TimeList';
 import {
   ButtonRegisterPet,
   ButtonRegisterPetText,
   Container,
   Content,
+  FeedWeightTableWrapper,
   FieldsWrapper,
-  PetTypeTitle,
-  PetTypeWrapper,
-  PetTypeWrapperCards,
 } from './styles';
 
 export function AddPet() {
@@ -71,15 +69,9 @@ export function AddPet() {
       <DetailHeader title="Adicionar Pet" />
 
       <Content>
-        <PetTypeWrapper>
-          <PetTypeTitle>Categorias</PetTypeTitle>
-
-          <PetTypeWrapperCards>
-            <PetTypeCard type="dog" checked />
-
-            <PetTypeCard type="cat" checked={false} />
-          </PetTypeWrapperCards>
-        </PetTypeWrapper>
+        <FeedWeightTableWrapper>
+          <FeedWeightTable />
+        </FeedWeightTableWrapper>
 
         <FieldsWrapper>
           <Input label="Nome" />

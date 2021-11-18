@@ -49,3 +49,7 @@ export const ButtonRegisterPetText = styled.Text`
 
   color: ${({ theme }) => theme.colors.white};
 `;
+
+export const FeedWeightTableWrapper = styled.View`
+  margin-top: 30px;
+`;

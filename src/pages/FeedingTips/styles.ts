@@ -4,7 +4,9 @@ export const Container = styled.View`
   flex: 1;
 `;
 
-export const WrapperTips = styled.ScrollView`
+export const Content = styled.ScrollView``;
+
+export const WrapperTips = styled.View`
   margin: 10px 0;
 
   padding: 0 20px;
