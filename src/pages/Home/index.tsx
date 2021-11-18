@@ -14,6 +14,12 @@ import {
 } from './styles';
 
 export function Home() {
+  const times = [
+    { id: '1', time: '2021-11-15T13:00:00.769Z' },
+    { id: '2', time: '2021-11-15T17:00:00.769Z' },
+    { id: '3', time: '2021-11-15T23:00:00.769Z' },
+  ];
+
   return (
     <Container>
       <HomeHeader />
@@ -35,7 +41,7 @@ export function Home() {
           editable={false}
         />
 
-        <TimeList />
+        <TimeList times={times} />
 
         <ButtonEditPet>
           <ButtonEditPetText>Editar Pet</ButtonEditPetText>

@@ -79,5 +79,6 @@ module.exports = {
     'prettier/prettier': 'error',
     '@typescript-eslint/no-empty-interface': 'off',
     'react/require-default-props': 'off',
+    'react/jsx-no-bind': 'off',
   },
 };

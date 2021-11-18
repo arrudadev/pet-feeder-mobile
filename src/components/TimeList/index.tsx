@@ -1,37 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native-gesture-handler';
+import React from 'react';
 
 import { TimeListHeader } from '../TimeListHeader';
 import { TimeListItem } from '../TimeListItem';
 import { Container, TimeWrapper } from './styles';
 
-export function TimeList() {
-  const [times, setTimes] = useState<any>([]);
+type Time = {
+  id: string;
+  time: string;
+};
 
-  useEffect(() => {
-    setTimes([
-      {
-        id: 1,
-        time: '08:00',
-      },
-      {
-        id: 2,
-        time: '14:00',
-      },
-      {
-        id: 3,
-        time: '20:00',
-      },
-    ]);
-  }, []);
+type TimeListProps = {
+  times: Time[];
+  editable?: boolean;
+  onDelete?: (id: string) => void;
+  onEdit?: (id: string) => void;
+  onAdd?: (id: string) => void;
+};
 
+export function TimeList({
+  times,
+  editable,
+  onDelete,
+  onEdit,
+  onAdd,
+}: TimeListProps) {
   return (
     <Container>
-      <TimeListHeader />
+      <TimeListHeader editable={editable} onAdd={onAdd} />
 
       <TimeWrapper>
         {times.map((time: any) => (
-          <TimeListItem key={time.id} time={time.time} />
+          <TimeListItem
+            key={time.id}
+            id={time.id}
+            time={time.time}
+            editable={editable}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
         ))}
       </TimeWrapper>
     </Container>

@@ -1,8 +1,8 @@
 import { RectButton } from 'react-native-gesture-handler';
 
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
-export const Container = styled(RectButton)`
+const styledContainer = css`
   flex-direction: row;
   align-items: center;
 
@@ -12,6 +12,14 @@ export const Container = styled(RectButton)`
   border-radius: 8px;
 
   background-color: ${({ theme }) => theme.colors.shape};
+`;
+
+export const Container = styled.View`
+  ${styledContainer}
+`;
+
+export const ContainerButton = styled(RectButton)`
+  ${styledContainer}
 `;
 
 export const Time = styled.Text`
