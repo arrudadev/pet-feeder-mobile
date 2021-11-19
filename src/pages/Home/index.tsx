@@ -2,6 +2,7 @@ import React from 'react';
 
 import { HomeHeader } from '../../components/Headers/HomeHeader';
 import { Input } from '../../components/Input';
+import { NoPetSelected } from '../../components/NoPetSelected';
 import { NoRegisteredPets } from '../../components/NoRegisteredPets';
 import { SelectPet } from '../../components/SelectPet';
 import { TimeList } from '../../components/TimeList';
@@ -15,10 +16,13 @@ import {
 } from './styles';
 
 export function Home() {
-  // { id: '1', time: '2021-11-15T13:00:00.769Z' },
-  // { id: '2', time: '2021-11-15T17:00:00.769Z' },
-  // { id: '3', time: '2021-11-15T23:00:00.769Z' },
-  const times: any[] = [];
+  const times: any[] = [
+    { id: '1', time: '2021-11-15T13:00:00.769Z' },
+    { id: '2', time: '2021-11-15T17:00:00.769Z' },
+    { id: '3', time: '2021-11-15T23:00:00.769Z' },
+  ];
+
+  const petSelected = false;
 
   return (
     <Container>
@@ -39,17 +43,23 @@ export function Home() {
           <>
             <SelectPet />
 
-            <Input
-              label="Quantidade de ração por Refeição"
-              value="100g"
-              editable={false}
-            />
+            {!petSelected && <NoPetSelected />}
 
-            <TimeList times={times} />
+            {petSelected && (
+              <>
+                <Input
+                  label="Quantidade de ração por Refeição"
+                  value="100g"
+                  editable={false}
+                />
 
-            <ButtonEditPet>
-              <ButtonEditPetText>Editar Pet</ButtonEditPetText>
-            </ButtonEditPet>
+                <TimeList times={times} />
+
+                <ButtonEditPet>
+                  <ButtonEditPetText>Editar Pet</ButtonEditPetText>
+                </ButtonEditPet>
+              </>
+            )}
           </>
         )}
       </Wrapper>
