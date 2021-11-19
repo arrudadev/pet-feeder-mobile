@@ -3,12 +3,14 @@ import { RectButton } from 'react-native-gesture-handler';
 
 import { Feather } from '@expo/vector-icons';
 
+import { usePet } from '../../hooks/usePet';
 import theme from '../../styles/theme';
 import { ModalView } from '../ModalView';
-import { SelectPetItem } from '../SelectPetItem';
 import { Label, Select, SelectBody } from './styles';
 
 export function SelectPet() {
+  const { selectedPetName } = usePet();
+
   const [isSelectPetModalOpen, setIsSelectPetModalOpen] = useState(false);
 
   function handleOpenSelectPetModal() {
@@ -19,18 +21,16 @@ export function SelectPet() {
     setIsSelectPetModalOpen(false);
   }
 
-  const pets = [
-    { id: '1', title: 'Pipoca' },
-    { id: '2', title: 'Marafo' },
-    { id: '3', title: 'Marafo' },
-  ];
-
   return (
     <>
       <RectButton onPress={() => handleOpenSelectPetModal()}>
         <Select>
           <SelectBody>
-            <Label>Selecione o seu Pet</Label>
+            <Label>
+              {selectedPetName.length > 0
+                ? selectedPetName
+                : 'Selecione um Pet'}
+            </Label>
           </SelectBody>
 
           <Feather
@@ -45,11 +45,7 @@ export function SelectPet() {
         title="Meus Pets"
         visible={isSelectPetModalOpen}
         closeModal={() => handleCloseSelectPetModal()}
-      >
-        {pets.map(pet => (
-          <SelectPetItem key={pet.id} title={pet.title} />
-        ))}
-      </ModalView>
+      />
     </>
   );
 }

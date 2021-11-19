@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { HomeHeader } from '../../components/Headers/HomeHeader';
 import { Input } from '../../components/Input';
@@ -7,6 +7,7 @@ import { NoRegisteredPets } from '../../components/NoRegisteredPets';
 import { SelectPet } from '../../components/SelectPet';
 import { TimeList } from '../../components/TimeList';
 import { Tips } from '../../components/Tips';
+import { usePet } from '../../hooks/usePet';
 import {
   ButtonEditPet,
   ButtonEditPetText,
@@ -16,13 +17,23 @@ import {
 } from './styles';
 
 export function Home() {
-  const times: any[] = [
-    { id: '1', time: '2021-11-15T13:00:00.769Z' },
-    { id: '2', time: '2021-11-15T17:00:00.769Z' },
-    { id: '3', time: '2021-11-15T23:00:00.769Z' },
-  ];
+  const {
+    loadPetList,
+    petList,
+    selectedPetId,
+    selectedPetFeedWeight,
+    selectedPetFeedHours,
+  } = usePet();
 
-  const petSelected = false;
+  const petSelected = !!selectedPetId;
+
+  useEffect(() => {
+    const fetchPets = async () => {
+      await loadPetList();
+    };
+
+    fetchPets();
+  }, []);
 
   return (
     <Container>
@@ -37,9 +48,9 @@ export function Home() {
       </TipsWrapper>
 
       <Wrapper>
-        {times.length === 0 && <NoRegisteredPets />}
+        {petList.length === 0 && <NoRegisteredPets />}
 
-        {times.length > 0 && (
+        {petList.length > 0 && (
           <>
             <SelectPet />
 
@@ -49,11 +60,11 @@ export function Home() {
               <>
                 <Input
                   label="Quantidade de ração por Refeição"
-                  value="100g"
+                  value={String(selectedPetFeedWeight)}
                   editable={false}
                 />
 
-                <TimeList times={times} />
+                <TimeList times={selectedPetFeedHours} />
 
                 <ButtonEditPet>
                   <ButtonEditPetText>Editar Pet</ButtonEditPetText>
