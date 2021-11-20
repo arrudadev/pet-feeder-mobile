@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Alert } from 'react-native';
 // eslint-disable-next-line
 // @ts-ignore
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -10,7 +11,6 @@ import {
 } from '@react-navigation/native';
 
 import { FeedWeightButton } from '../../components/FeedWeightButton';
-import { FeedWeightTable } from '../../components/FeedWeightTable';
 import { DetailHeader } from '../../components/Headers/DetailHeader';
 import { Input } from '../../components/Input';
 import { TimeList } from '../../components/TimeList';
@@ -103,33 +103,79 @@ export function AddPet() {
     SetTimes(times.filter((time: any, timeIndex: any) => timeIndex !== id));
   }
 
-  function handleAddNewPet() {
-    addNewPet({
-      petName: name,
-      petFeedWeight: weight,
-      feedHours: times,
-    });
+  function isFormValid() {
+    if (name.length === 0 || weight.length === 0 || times.length < 2) {
+      return false;
+    }
 
-    navigation.dispatch(
-      CommonActions.navigate({
-        name: 'Home',
-      }),
-    );
+    return true;
+  }
+
+  function alertFormInvalid() {
+    if (!name) {
+      Alert.alert('Atenção', 'Por favor, informe o nome do Pet', [
+        {
+          text: 'Ok',
+        },
+      ]);
+    } else if (!weight) {
+      Alert.alert(
+        'Atenção',
+        'Por favor, informe a quantidade de Ração por Refeição do Pet',
+        [
+          {
+            text: 'Ok',
+          },
+        ],
+      );
+    } else if (times.length < 2) {
+      Alert.alert(
+        'Atenção',
+        'Por favor, informe pelo menos 2 horários para Alimentar o seu Pet',
+        [
+          {
+            text: 'Ok',
+          },
+        ],
+      );
+    }
+  }
+
+  function handleAddNewPet() {
+    if (isFormValid()) {
+      addNewPet({
+        petName: name,
+        petFeedWeight: weight,
+        feedHours: times,
+      });
+
+      navigation.dispatch(
+        CommonActions.navigate({
+          name: 'Home',
+        }),
+      );
+    } else {
+      alertFormInvalid();
+    }
   }
 
   function handleEditPet() {
-    editPet({
-      petId: selectedPetId,
-      petName: name,
-      petFeedWeight: weight,
-      feedHours: times,
-    });
+    if (isFormValid()) {
+      editPet({
+        petId: selectedPetId,
+        petName: name,
+        petFeedWeight: weight,
+        feedHours: times,
+      });
 
-    navigation.dispatch(
-      CommonActions.navigate({
-        name: 'Home',
-      }),
-    );
+      navigation.dispatch(
+        CommonActions.navigate({
+          name: 'Home',
+        }),
+      );
+    } else {
+      alertFormInvalid();
+    }
   }
 
   return (
@@ -145,7 +191,7 @@ export function AddPet() {
           <Input label="Nome" value={name} onChangeText={setName} />
 
           <Input
-            label="Quantidade de Ração por Refeição"
+            label="Quantidade de Ração por Refeição (g)"
             keyboardType="numeric"
             value={weight}
             onChangeText={setWeight}
