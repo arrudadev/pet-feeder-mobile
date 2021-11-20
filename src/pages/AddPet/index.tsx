@@ -44,6 +44,8 @@ export function AddPet() {
     mode,
   } = routes.params as Params;
 
+  const title = mode === 'edit' ? 'Editar Pet' : 'Adicionar Pet';
+
   const { addNewPet, editPet } = usePet();
 
   const [name, setName] = useState(selectedPetName || '');
@@ -132,7 +134,7 @@ export function AddPet() {
 
   return (
     <Container>
-      <DetailHeader title="Adicionar Pet" />
+      <DetailHeader title={title} />
 
       <Content>
         <FeedWeightTableWrapper>
