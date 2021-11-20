@@ -50,6 +50,7 @@ export const PetContextProvider = ({ children }: PetContextProviderProps) => {
     const id = (Math.random() + 1).toString(36).substring(7);
     const newPet = { petId: id, ...pet };
     setPetList([...petList, newPet]);
+    setSelectedPetId(id);
   };
 
   const editPet = async (pet: any) => {
@@ -58,6 +59,10 @@ export const PetContextProvider = ({ children }: PetContextProviderProps) => {
     petList[index] = pet;
 
     setPetList([...petList]);
+    setSelectedPetId(pet.petId);
+    setSelectedPetName(pet.petName);
+    setSelectedPetFeedWeight(pet.petFeedWeight);
+    setSelectedPetFeedHours(pet.feedHours);
   };
 
   return (

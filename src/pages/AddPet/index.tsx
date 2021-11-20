@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 // @ts-ignore
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-import { CommonActions, useNavigation } from '@react-navigation/native';
+import {
+  CommonActions,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 
 import { FeedWeightTable } from '../../components/FeedWeightTable';
 import { DetailHeader } from '../../components/Headers/DetailHeader';
@@ -19,17 +23,34 @@ import {
   FieldsWrapper,
 } from './styles';
 
+type Params = {
+  selectedPetId: string;
+  selectedPetName: string;
+  selectedPetFeedWeight: string;
+  selectedPetFeedHours: any[];
+  mode: string;
+};
+
 export function AddPet() {
   const navigation = useNavigation();
+  const routes = useRoute();
 
-  const { addNewPet } = usePet();
+  const {
+    selectedPetId,
+    selectedPetName,
+    selectedPetFeedWeight,
+    selectedPetFeedHours,
+    mode,
+  } = routes.params as Params;
 
-  const [name, setName] = useState('');
-  const [weight, setWeight] = useState('');
+  const { addNewPet, editPet } = usePet();
+
+  const [name, setName] = useState(selectedPetName || '');
+  const [weight, setWeight] = useState(selectedPetFeedWeight || '');
 
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [times, SetTimes] = useState<any>([]);
+  const [times, SetTimes] = useState<any>(selectedPetFeedHours || []);
   const [isEdit, setIsEdit] = useState(false);
   const [editTimeId, setEditTimeId] = useState('-1');
 
@@ -90,6 +111,21 @@ export function AddPet() {
     );
   }
 
+  function handleEditPet() {
+    editPet({
+      petId: selectedPetId,
+      petName: name,
+      petFeedWeight: weight,
+      feedHours: times,
+    });
+
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'Home',
+      }),
+    );
+  }
+
   return (
     <Container>
       <DetailHeader title="Adicionar Pet" />
@@ -118,9 +154,17 @@ export function AddPet() {
           onDelete={handleRemoveTime}
         />
 
-        <ButtonRegisterPet onPress={() => handleAddNewPet()}>
-          <ButtonRegisterPetText>Cadastrar Pet</ButtonRegisterPetText>
-        </ButtonRegisterPet>
+        {mode === 'new' && (
+          <ButtonRegisterPet onPress={() => handleAddNewPet()}>
+            <ButtonRegisterPetText>Cadastrar Pet</ButtonRegisterPetText>
+          </ButtonRegisterPet>
+        )}
+
+        {mode === 'edit' && (
+          <ButtonRegisterPet onPress={() => handleEditPet()}>
+            <ButtonRegisterPetText>Salvar</ButtonRegisterPetText>
+          </ButtonRegisterPet>
+        )}
       </Content>
 
       <DateTimePickerModal

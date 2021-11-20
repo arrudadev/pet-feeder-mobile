@@ -15,6 +15,9 @@ export function ButtonAddPet({ ...rest }: RectButtonProps) {
     navigation.dispatch(
       CommonActions.navigate({
         name: 'AddPet',
+        params: {
+          mode: 'new',
+        },
       }),
     );
   }

@@ -19,6 +19,9 @@ export function NoRegisteredPets() {
     navigation.dispatch(
       CommonActions.navigate({
         name: 'AddPet',
+        params: {
+          mode: 'new',
+        },
       }),
     );
   }
