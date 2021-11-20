@@ -3,10 +3,13 @@ import React, { useState } from 'react';
 // @ts-ignore
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
+import { CommonActions, useNavigation } from '@react-navigation/native';
+
 import { FeedWeightTable } from '../../components/FeedWeightTable';
 import { DetailHeader } from '../../components/Headers/DetailHeader';
 import { Input } from '../../components/Input';
 import { TimeList } from '../../components/TimeList';
+import { usePet } from '../../hooks/usePet';
 import {
   ButtonRegisterPet,
   ButtonRegisterPetText,
@@ -17,6 +20,13 @@ import {
 } from './styles';
 
 export function AddPet() {
+  const navigation = useNavigation();
+
+  const { addNewPet } = usePet();
+
+  const [name, setName] = useState('');
+  const [weight, setWeight] = useState('');
+
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [times, SetTimes] = useState<any>([]);
@@ -64,6 +74,22 @@ export function AddPet() {
     SetTimes(times.filter((time: any) => time.id !== id));
   }
 
+  function handleAddNewPet() {
+    addNewPet({
+      petName: name,
+      petFeedWeight: weight,
+      feedHours: times.map((item: any) => ({
+        hour: item.time,
+      })),
+    });
+
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'Home',
+      }),
+    );
+  }
+
   return (
     <Container>
       <DetailHeader title="Adicionar Pet" />
@@ -74,9 +100,14 @@ export function AddPet() {
         </FeedWeightTableWrapper>
 
         <FieldsWrapper>
-          <Input label="Nome" />
+          <Input label="Nome" value={name} onChangeText={setName} />
 
-          <Input label="Quantidade de Ração por Refeição" />
+          <Input
+            label="Quantidade de Ração por Refeição"
+            keyboardType="numeric"
+            value={weight}
+            onChangeText={setWeight}
+          />
         </FieldsWrapper>
 
         <TimeList
@@ -87,7 +118,7 @@ export function AddPet() {
           onDelete={handleRemoveTime}
         />
 
-        <ButtonRegisterPet>
+        <ButtonRegisterPet onPress={() => handleAddNewPet()}>
           <ButtonRegisterPetText>Cadastrar Pet</ButtonRegisterPetText>
         </ButtonRegisterPet>
       </Content>
