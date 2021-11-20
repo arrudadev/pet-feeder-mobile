@@ -9,6 +9,7 @@ import {
   useRoute,
 } from '@react-navigation/native';
 
+import { FeedWeightButton } from '../../components/FeedWeightButton';
 import { FeedWeightTable } from '../../components/FeedWeightTable';
 import { DetailHeader } from '../../components/Headers/DetailHeader';
 import { Input } from '../../components/Input';
@@ -135,7 +136,7 @@ export function AddPet() {
 
       <Content>
         <FeedWeightTableWrapper>
-          <FeedWeightTable />
+          <FeedWeightButton />
         </FeedWeightTableWrapper>
 
         <FieldsWrapper>

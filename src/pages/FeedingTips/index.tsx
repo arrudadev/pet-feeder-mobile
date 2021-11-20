@@ -2,7 +2,7 @@ import React from 'react';
 
 import FeedingPetImg from '../../assets/feeding-pet.jpg';
 import { DetailBanner } from '../../components/DetailBanner';
-import { FeedWeightTable } from '../../components/FeedWeightTable';
+import { FeedWeightButton } from '../../components/FeedWeightButton';
 import { DetailHeader } from '../../components/Headers/DetailHeader';
 import {
   Container,
@@ -26,7 +26,7 @@ export function FeedingTips() {
         />
 
         <WrapperTips>
-          <FeedWeightTable />
+          <FeedWeightButton />
 
           <TipContent>
             <TipTitles>
