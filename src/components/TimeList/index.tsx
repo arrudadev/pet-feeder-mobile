@@ -5,8 +5,7 @@ import { TimeListItem } from '../TimeListItem';
 import { Container, TimeWrapper } from './styles';
 
 type Time = {
-  id: string;
-  time: string;
+  hour: string;
 };
 
 type TimeListProps = {
@@ -29,11 +28,11 @@ export function TimeList({
       <TimeListHeader editable={editable} onAdd={onAdd} />
 
       <TimeWrapper>
-        {times.map((time: any) => (
+        {times.map((time: any, index: any) => (
           <TimeListItem
-            key={time.id}
-            id={time.id}
-            time={time.time}
+            key={index}
+            id={index}
+            time={time.hour}
             editable={editable}
             onEdit={onEdit}
             onDelete={onDelete}

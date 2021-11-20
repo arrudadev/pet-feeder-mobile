@@ -37,20 +37,18 @@ export const PetContextProvider = ({ children }: PetContextProviderProps) => {
     setSelectedPetId(pet.petId);
     setSelectedPetName(pet.petName);
     setSelectedPetFeedWeight(pet.petFeedWeight);
-
-    const times = pet.feedHours.map((item: any, index: number) => ({
-      id: index,
-      time: item.hour,
-    }));
-
-    setSelectedPetFeedHours(times);
+    setSelectedPetFeedHours(pet.feedHours);
   };
 
   const addNewPet = async (pet: any) => {
     const id = (Math.random() + 1).toString(36).substring(7);
     const newPet = { petId: id, ...pet };
+
     setPetList([...petList, newPet]);
     setSelectedPetId(id);
+    setSelectedPetName(newPet.petName);
+    setSelectedPetFeedWeight(newPet.petFeedWeight);
+    setSelectedPetFeedHours(newPet.feedHours);
   };
 
   const editPet = async (pet: any) => {

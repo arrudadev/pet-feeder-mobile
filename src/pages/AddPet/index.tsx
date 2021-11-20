@@ -60,18 +60,20 @@ export function AddPet() {
 
   function handleTimePickerConfirm(date: Date) {
     if (isEdit) {
-      const index = times.findIndex((time: any) => time.id === editTimeId);
+      const index = times.findIndex(
+        (time: any, timeIndex: any) => timeIndex === editTimeId,
+      );
+
       const newTimes = [...times];
-      newTimes[index].time = date.toISOString();
+
+      newTimes[index].hour = date.toISOString();
+
       SetTimes(newTimes);
       setIsEdit(false);
       setEditTimeId('-1');
       setTimePickerVisibility(false);
     } else if (times.length < 3) {
-      SetTimes([
-        ...times,
-        { id: `${times.length + 1}`, time: date.toISOString() },
-      ]);
+      SetTimes([...times, { hour: date.toISOString() }]);
 
       setTimePickerVisibility(false);
     }
@@ -84,24 +86,25 @@ export function AddPet() {
   }
 
   function handleEditTime(id: string) {
-    const index = times.findIndex((time: any) => time.id === id);
-    setCurrentDate(new Date(times[index].time));
+    const index = times.findIndex(
+      (time: any, timeIndex: any) => timeIndex === id,
+    );
+
+    setCurrentDate(new Date(times[index].hour));
     setIsEdit(true);
     setEditTimeId(id);
     setTimePickerVisibility(true);
   }
 
   function handleRemoveTime(id: string) {
-    SetTimes(times.filter((time: any) => time.id !== id));
+    SetTimes(times.filter((time: any, timeIndex: any) => timeIndex !== id));
   }
 
   function handleAddNewPet() {
     addNewPet({
       petName: name,
       petFeedWeight: weight,
-      feedHours: times.map((item: any) => ({
-        hour: item.time,
-      })),
+      feedHours: times,
     });
 
     navigation.dispatch(
