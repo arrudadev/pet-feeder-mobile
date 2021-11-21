@@ -1,12 +1,15 @@
 import React from 'react';
+import { Alert } from 'react-native';
 
 import * as Google from 'expo-google-app-auth';
 
 import { CommonActions, useNavigation } from '@react-navigation/native';
+import { signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
 
 import { getEnvVars } from '../../../environment';
 import dogImg from '../../assets/dog.png';
 import googleIconImg from '../../assets/google-icon.png';
+import { auth } from '../../services/firebase';
 import {
   Container,
   GoogleButton,
@@ -26,13 +29,24 @@ export function Login() {
   const navigation = useNavigation();
 
   async function handleLogin() {
-    const result = await Google.logInAsync({
-      clientId: androidClientId,
-      scopes: ['profile', 'email'],
-    });
+    try {
+      const result = await Google.logInAsync({
+        clientId: androidClientId,
+        scopes: ['profile', 'email'],
+      });
 
-    if (result.type === 'success') {
-      navigation.dispatch(CommonActions.navigate({ name: 'Home' }));
+      if (result.type === 'success') {
+        const credential = GoogleAuthProvider.credential(
+          result.idToken,
+          result.accessToken,
+        );
+
+        signInWithCredential(auth, credential);
+
+        navigation.dispatch(CommonActions.navigate({ name: 'Home' }));
+      }
+    } catch (err) {
+      Alert.alert('Erro', 'Ocorreu um erro ao fazer login');
     }
   }
 
