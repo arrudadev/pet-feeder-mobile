@@ -1,7 +1,10 @@
 import React from 'react';
 
+import * as Google from 'expo-google-app-auth';
+
 import { CommonActions, useNavigation } from '@react-navigation/native';
 
+import { getEnvVars } from '../../../environment';
 import dogImg from '../../assets/dog.png';
 import googleIconImg from '../../assets/google-icon.png';
 import {
@@ -17,11 +20,20 @@ import {
   Wrapper,
 } from './styles';
 
+const { androidClientId } = getEnvVars();
+
 export function Login() {
   const navigation = useNavigation();
 
-  function handleLogin() {
-    navigation.dispatch(CommonActions.navigate({ name: 'Home' }));
+  async function handleLogin() {
+    const result = await Google.logInAsync({
+      clientId: androidClientId,
+      scopes: ['profile', 'email'],
+    });
+
+    if (result.type === 'success') {
+      navigation.dispatch(CommonActions.navigate({ name: 'Home' }));
+    }
   }
 
   return (
