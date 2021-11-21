@@ -3,12 +3,30 @@ import Constants from 'expo-constants';
 const ENV = {
   development: {
     androidClientId: '',
+    firebaseAppApiKey: '',
+    firebaseAppAuthDomain: '',
+    firebaseAppProjectId: '',
+    firebaseAppStorageBucket: '',
+    firebaseAppMessagingSenderId: '',
+    firebaseAppAppId: '',
   },
   staging: {
     androidClientId: '',
+    firebaseAppApiKey: '',
+    firebaseAppAuthDomain: '',
+    firebaseAppProjectId: '',
+    firebaseAppStorageBucket: '',
+    firebaseAppMessagingSenderId: '',
+    firebaseAppAppId: '',
   },
   production: {
     androidClientId: '',
+    firebaseAppApiKey: '',
+    firebaseAppAuthDomain: '',
+    firebaseAppProjectId: '',
+    firebaseAppStorageBucket: '',
+    firebaseAppMessagingSenderId: '',
+    firebaseAppAppId: '',
   },
 };
 
