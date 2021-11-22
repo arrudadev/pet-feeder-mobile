@@ -1,5 +1,8 @@
 import React, { createContext, ReactNode, useState } from 'react';
 
+import { useUser } from '../hooks/useUser';
+import { api } from '../services/api';
+
 type PetContextData = {
   petList: any[];
   selectedPetId: string;
@@ -19,6 +22,8 @@ type PetContextProviderProps = {
 };
 
 export const PetContextProvider = ({ children }: PetContextProviderProps) => {
+  const { token } = useUser();
+
   const [petList, setPetList] = useState<any[]>([]);
   const [selectedPetId, setSelectedPetId] = useState('');
   const [selectedPetName, setSelectedPetName] = useState('');
@@ -41,14 +46,34 @@ export const PetContextProvider = ({ children }: PetContextProviderProps) => {
   };
 
   const addNewPet = async (pet: any) => {
-    const id = (Math.random() + 1).toString(36).substring(7);
-    const newPet = { petId: id, ...pet };
+    const response = await api.post('/pet/', {
+      petName: pet.petName,
+      petFeedWeight: pet.petFeedWeight,
+      feedHours: pet.feedHours,
+      token,
+    });
 
-    setPetList([...petList, newPet]);
-    setSelectedPetId(id);
-    setSelectedPetName(newPet.petName);
-    setSelectedPetFeedWeight(newPet.petFeedWeight);
-    setSelectedPetFeedHours(newPet.feedHours);
+    const { success, petId } = response.data;
+
+    if (success) {
+      const newPetList = [...petList];
+
+      const newPet = {
+        petId,
+        petName: pet.petName,
+        petFeedWeight: pet.petFeedWeight,
+        feedHours: pet.feedHours,
+      };
+
+      newPetList.push(newPet);
+
+      setPetList(newPetList);
+
+      setSelectedPetId(petId);
+      setSelectedPetName(newPet.petName);
+      setSelectedPetFeedWeight(newPet.petFeedWeight);
+      setSelectedPetFeedHours(newPet.feedHours);
+    }
   };
 
   const editPet = async (pet: any) => {
