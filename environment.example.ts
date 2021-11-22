@@ -9,6 +9,7 @@ const ENV = {
     firebaseAppStorageBucket: '',
     firebaseAppMessagingSenderId: '',
     firebaseAppAppId: '',
+    apiUrl: '',
   },
   staging: {
     androidClientId: '',
@@ -18,6 +19,7 @@ const ENV = {
     firebaseAppStorageBucket: '',
     firebaseAppMessagingSenderId: '',
     firebaseAppAppId: '',
+    apiUrl: '',
   },
   production: {
     androidClientId: '',
@@ -27,6 +29,7 @@ const ENV = {
     firebaseAppStorageBucket: '',
     firebaseAppMessagingSenderId: '',
     firebaseAppAppId: '',
+    apiUrl: '',
   },
 };
 
