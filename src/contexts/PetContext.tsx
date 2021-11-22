@@ -77,15 +77,28 @@ export const PetContextProvider = ({ children }: PetContextProviderProps) => {
   };
 
   const editPet = async (pet: any) => {
-    const index = petList.findIndex(item => item.petId === pet.petId);
+    const response = await api.put('/pet/', {
+      petId: pet.petId,
+      petName: pet.petName,
+      petFeedWeight: pet.petFeedWeight,
+      feedHours: pet.feedHours,
+      token,
+    });
 
-    petList[index] = pet;
+    const { success } = response.data;
 
-    setPetList([...petList]);
-    setSelectedPetId(pet.petId);
-    setSelectedPetName(pet.petName);
-    setSelectedPetFeedWeight(pet.petFeedWeight);
-    setSelectedPetFeedHours(pet.feedHours);
+    if (success) {
+      const index = petList.findIndex(item => item.petId === pet.petId);
+
+      petList[index] = pet;
+
+      setPetList([...petList]);
+
+      setSelectedPetId(pet.petId);
+      setSelectedPetName(pet.petName);
+      setSelectedPetFeedWeight(pet.petFeedWeight);
+      setSelectedPetFeedHours(pet.feedHours);
+    }
   };
 
   return (
