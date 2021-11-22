@@ -32,7 +32,13 @@ export const PetContextProvider = ({ children }: PetContextProviderProps) => {
 
   const loadPetList = async () => {
     if (petList.length === 0) {
-      setPetList([]);
+      const response = await api.get(`/pet?token=${token}`);
+
+      const { success, pets } = response.data;
+
+      if (success) {
+        setPetList(pets);
+      }
     }
   };
 
