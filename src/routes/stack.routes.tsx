@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { AddPet } from '../pages/AddPet';
 import { BreedDetail } from '../pages/BreedDetail';
+import { DevicePairing } from '../pages/DevicePairing';
 import { FeedingTips } from '../pages/FeedingTips';
 import { Home } from '../pages/Home';
 import { Login } from '../pages/Login';
@@ -24,5 +25,7 @@ export const StackRoutes: React.FC = () => (
     <Stack.Screen name="BreedDetail" component={BreedDetail} />
 
     <Stack.Screen name="AddPet" component={AddPet} />
+
+    <Stack.Screen name="DevicePairing" component={DevicePairing} />
   </Stack.Navigator>
 );

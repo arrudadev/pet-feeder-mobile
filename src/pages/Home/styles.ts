@@ -90,3 +90,22 @@ export const ButtonEditPetText = styled.Text`
 
   color: ${({ theme }) => theme.colors.white};
 `;
+
+export const ButtonDevicePairing = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: center;
+
+  height: 56px;
+
+  margin-top: 10px;
+
+  border-radius: 16px;
+  background-color: ${({ theme }) => theme.colors.blue_light};
+`;
+
+export const ButtonDevicePairingText = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.text};
+  font-size: 18px;
+
+  color: ${({ theme }) => theme.colors.blue};
+`;

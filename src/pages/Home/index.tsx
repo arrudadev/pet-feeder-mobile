@@ -11,6 +11,8 @@ import { TimeList } from '../../components/TimeList';
 import { Tips } from '../../components/Tips';
 import { usePet } from '../../hooks/usePet';
 import {
+  ButtonDevicePairing,
+  ButtonDevicePairingText,
   ButtonEditPet,
   ButtonEditPetText,
   Container,
@@ -43,6 +45,14 @@ export function Home() {
           selectedPetFeedHours,
           mode: 'edit',
         },
+      }),
+    );
+  }
+
+  function handleDevicePairing() {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'DevicePairing',
       }),
     );
   }
@@ -89,6 +99,12 @@ export function Home() {
                 <ButtonEditPet onPress={() => handleEditPet()}>
                   <ButtonEditPetText>Editar Pet</ButtonEditPetText>
                 </ButtonEditPet>
+
+                <ButtonDevicePairing onPress={() => handleDevicePairing()}>
+                  <ButtonDevicePairingText>
+                    Parear Dispositivo
+                  </ButtonDevicePairingText>
+                </ButtonDevicePairing>
               </>
             )}
           </>
