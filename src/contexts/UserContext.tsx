@@ -8,6 +8,7 @@ import { CommonActions, useNavigation } from '@react-navigation/native';
 import { signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
 
 import { getEnvVars } from '../../environment';
+import { Spinner } from '../components/Spinner';
 import { auth } from '../services/firebase';
 
 type UserContextData = {
@@ -34,8 +35,12 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   const [userPhotoUrl, setUserPhotoUrl] = useState('');
   const [token, setToken] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   async function googleLogin() {
     try {
+      setLoading(true);
+
       const result = await Google.logInAsync({
         clientId: androidClientId,
         scopes: ['profile', 'email'],
@@ -58,9 +63,14 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
 
         await AsyncStorage.setItem('@PetFeeder-Token', currentUserToken || '');
 
+        setLoading(false);
+
         navigation.dispatch(CommonActions.navigate({ name: 'Home' }));
+      } else {
+        setLoading(false);
       }
     } catch (err) {
+      setLoading(false);
       Alert.alert('Erro', 'Ocorreu um erro ao fazer login');
     }
   }
@@ -76,6 +86,8 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
       }}
     >
       {children}
+
+      <Spinner visible={loading} />
     </UserContext.Provider>
   );
 };

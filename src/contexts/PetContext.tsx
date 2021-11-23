@@ -1,5 +1,6 @@
 import React, { createContext, ReactNode, useState } from 'react';
 
+import { Spinner } from '../components/Spinner';
 import { useUser } from '../hooks/useUser';
 import { api } from '../services/api';
 
@@ -30,14 +31,18 @@ export const PetContextProvider = ({ children }: PetContextProviderProps) => {
   const [selectedPetFeedWeight, setSelectedPetFeedWeight] = useState(0);
   const [selectedPetFeedHours, setSelectedPetFeedHours] = useState([]);
 
+  const [loading, setLoading] = useState(false);
+
   const loadPetList = async () => {
     if (petList.length === 0) {
+      setLoading(true);
       const response = await api.get(`/pet?token=${token}`);
 
       const { success, pets } = response.data;
 
       if (success) {
         setPetList(pets);
+        setLoading(false);
       }
     }
   };
@@ -52,6 +57,7 @@ export const PetContextProvider = ({ children }: PetContextProviderProps) => {
   };
 
   const addNewPet = async (pet: any) => {
+    setLoading(true);
     const response = await api.post('/pet/', {
       petName: pet.petName,
       petFeedWeight: pet.petFeedWeight,
@@ -79,10 +85,14 @@ export const PetContextProvider = ({ children }: PetContextProviderProps) => {
       setSelectedPetName(newPet.petName);
       setSelectedPetFeedWeight(newPet.petFeedWeight);
       setSelectedPetFeedHours(newPet.feedHours);
+      setLoading(false);
+    } else {
+      setLoading(false);
     }
   };
 
   const editPet = async (pet: any) => {
+    setLoading(true);
     const response = await api.put('/pet/', {
       petId: pet.petId,
       petName: pet.petName,
@@ -104,6 +114,9 @@ export const PetContextProvider = ({ children }: PetContextProviderProps) => {
       setSelectedPetName(pet.petName);
       setSelectedPetFeedWeight(pet.petFeedWeight);
       setSelectedPetFeedHours(pet.feedHours);
+      setLoading(false);
+    } else {
+      setLoading(false);
     }
   };
 
@@ -122,6 +135,8 @@ export const PetContextProvider = ({ children }: PetContextProviderProps) => {
       }}
     >
       {children}
+
+      <Spinner visible={loading} />
     </PetContext.Provider>
   );
 };
