@@ -25,7 +25,7 @@ export const Text = styled.Text`
   color: ${({ theme }) => theme.colors.heading};
 
   text-align: center;
-  margin: 10px 0;
+  margin: 5px 0;
 `;
 
 export const ButtonSave = styled.TouchableOpacity`

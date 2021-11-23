@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Alert } from 'react-native';
 
 import { AntDesign } from '@expo/vector-icons';
 
+import axios from 'axios';
+
 import { DetailHeader } from '../../components/Headers/DetailHeader';
 import { Input } from '../../components/Input';
+import { usePet } from '../../hooks/usePet';
 import {
   ButtonSave,
   ButtonSaveText,
@@ -14,7 +18,36 @@ import {
 } from './styles';
 
 export function DevicePairing() {
-  const deviceAccessPointName = 'TESTE';
+  const { selectedPetId } = usePet();
+
+  const deviceAccessPointSSID = 'PetFeeder-AP';
+  const deviceAccessPointPassword = '12345678';
+
+  const [ssid, setSSID] = useState('');
+  const [password, setPassword] = useState('');
+
+  async function handleSaveDevicePairing() {
+    try {
+      const deviceApi = axios.create({
+        baseURL: 'http://192.168.111.111',
+      });
+
+      const response = await deviceApi.post('/config', {
+        ssid,
+        password,
+        type: 'config',
+        petId: selectedPetId,
+      });
+
+      const { status } = response.data;
+
+      if (status === 'success') {
+        Alert.alert('Sucesso', 'Pareamento de dispositivo bem-sucedido');
+      }
+    } catch (err) {
+      Alert.alert('Erro', 'Ocorreu algum erro ao configurar o dispositivo');
+    }
+  }
 
   return (
     <Container>
@@ -26,12 +59,13 @@ export function DevicePairing() {
         <WifiWrapper>
           <AntDesign name="wifi" size={72} color="black" />
 
-          <Text>{deviceAccessPointName}</Text>
+          <Text>SSID: {deviceAccessPointSSID}</Text>
+          <Text>Senha: {deviceAccessPointPassword}</Text>
         </WifiWrapper>
 
         <Text>
-          Depois de Conectado no Wifi {deviceAccessPointName}, selecione a baixo
-          o nome da sua Rede Wifi e digite suas credenciais e salve.
+          Depois de Conectado no Wifi {deviceAccessPointSSID}, digite a baixo o
+          nome da sua Rede Wifi e digite suas credenciais e salve.
         </Text>
 
         <Text>
@@ -39,11 +73,16 @@ export function DevicePairing() {
           pronto para começar a alimentar seus Pets.
         </Text>
 
-        <Input label="Wifi" />
+        <Input label="Wifi" value={ssid} onChangeText={setSSID} />
 
-        <Input label="Senha" />
+        <Input
+          label="Senha"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
 
-        <ButtonSave>
+        <ButtonSave onPress={() => handleSaveDevicePairing()}>
           <ButtonSaveText>Salvar</ButtonSaveText>
         </ButtonSave>
       </Wrapper>
